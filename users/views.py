@@ -5,8 +5,8 @@ from django.urls import reverse
 def index(request):
     """
     index
-    :param request:请求对象
-    :return: 响应对象
+    :param request:请求对象,第一个参数
+    :return: 响应对象,必须返回HttpResponse对象
     """
     return HttpResponse('hello world!!')
 
