@@ -11,8 +11,16 @@ def my_decoration(view_func):
     def wrapper(request, *args, **kwargs):
         print('my_decoration')
         # 打印请求参数
-        print(request.path)
+        # print(request.path)
         # 视图函数返回结果要进行返回
+        return view_func(request, *args, **kwargs)
+
+    return wrapper
+
+
+def my_decoration_two(view_func):
+    def wrapper(request, *args, **kwargs):
+        print('my_decoration_two')
         return view_func(request, *args, **kwargs)
 
     return wrapper
@@ -48,11 +56,13 @@ def my_decoration(view_func):
 
 """
 通过创建扩展类来实现通用的类视图装饰器
+多继承实现多个装饰器
 """
 
 
-class BaseView(View):
-    """扩展类"""
+class BaseView(object):
+    """扩展类1"""
+
     @classmethod
     def as_view(cls, *args, **kwargs):
         """重写as_view()方法"""
@@ -62,10 +72,22 @@ class BaseView(View):
         return view
 
 
-class DemoView(BaseView):
-    """视图类继承于扩展类"""
-    def get(self,request):
+class BaseViewTwo(object):
+    """扩展类2"""
+
+    @classmethod
+    def as_view(cls, *args, **kwargs):
+        # 按照MRO向上查找
+        view = super().as_view(*args, **kwargs)
+        view = my_decoration_two(view)
+        return view
+
+
+class DemoView(BaseView,BaseViewTwo,View):
+    """多继承View最后"""
+
+    def get(self, request):
         return HttpResponse('getting')
 
-    def post(self,request):
+    def post(self, request):
         return HttpResponse('posting')
