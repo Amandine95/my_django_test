@@ -27,13 +27,15 @@ def my_decoration(view_func):
 """
 
 
+# @method_decorator(my_decoration,name="get")
+@method_decorator(my_decoration, name="dispatch")
 class DemoView(View):
     """自定义视图类"""
 
-    @method_decorator(my_decoration)
-    def dispatch(self, request, *args, **kwargs):
-        """重写父类方法,所有请求方式都会调用这个方法"""
-        return super().dispatch(request, *args, **kwargs)
+    # @method_decorator(my_decoration)
+    # def dispatch(self, request, *args, **kwargs):
+    #     """重写父类方法,所有请求方式都会调用这个方法"""
+    #     return super().dispatch(request, *args, **kwargs)
 
     # @method_decorator(my_decoration) 给单独的方法添加装饰器
     def get(self, request):
