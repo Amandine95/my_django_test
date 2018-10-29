@@ -23,5 +23,7 @@ urlpatterns = [
     # include 指定路由命名空间 namespace
     url(r'^users/',include('users.urls',namespace='users')),
     # 不加前缀   空字符串
-    url(r'^',include('reqresp.urls'))
+    url(r'^',include('reqresp.urls')),
+
+    url(r'^',include('classviews.urls'))
 ]
