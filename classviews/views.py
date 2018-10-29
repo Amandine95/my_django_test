@@ -26,22 +26,46 @@ def my_decoration(view_func):
 类视图/类视图方法添加装饰器都要 method_decorator
 """
 
-
 # @method_decorator(my_decoration,name="get")
-@method_decorator(my_decoration, name="dispatch")
-class DemoView(View):
-    """自定义视图类"""
+# @method_decorator(my_decoration, name="dispatch")
+# class DemoView(View):
+#     """自定义视图类"""
+#
+#     # @method_decorator(my_decoration)
+#     # def dispatch(self, request, *args, **kwargs):
+#     #     """重写父类方法,所有请求方式都会调用这个方法"""
+#     #     return super().dispatch(request, *args, **kwargs)
+#
+#     # @method_decorator(my_decoration) 给单独的方法添加装饰器
+#     def get(self, request):
+#         """get方法"""
+#         return HttpResponse('get')
+#
+#     def post(self, request):
+#         """post"""
+#         return HttpResponse('post')
 
-    # @method_decorator(my_decoration)
-    # def dispatch(self, request, *args, **kwargs):
-    #     """重写父类方法,所有请求方式都会调用这个方法"""
-    #     return super().dispatch(request, *args, **kwargs)
 
-    # @method_decorator(my_decoration) 给单独的方法添加装饰器
-    def get(self, request):
-        """get方法"""
-        return HttpResponse('get')
+"""
+通过创建扩展类来实现通用的类视图装饰器
+"""
 
-    def post(self, request):
-        """post"""
-        return HttpResponse('post')
+
+class BaseView(View):
+    """扩展类"""
+    @classmethod
+    def as_view(cls, *args, **kwargs):
+        """重写as_view()方法"""
+        view = super().as_view(*args, **kwargs)
+        # 装饰器装饰,视图类的方法都会调用as_view(),扩展类中添加装饰行为
+        view = my_decoration(view)
+        return view
+
+
+class DemoView(BaseView):
+    """视图类继承于扩展类"""
+    def get(self,request):
+        return HttpResponse('getting')
+
+    def post(self,request):
+        return HttpResponse('posting')
