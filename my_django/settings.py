@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'reqresp.apps.ReqrespConfig',
-    'classviews.apps.ClassviewsConfig'
+    'classviews.apps.ClassviewsConfig',
+    'database_models.apps.DatabaseModelsConfig'
 
 ]
 
