@@ -16,3 +16,13 @@ django的模板：
 4,创建视图类,render方法返回模板,三个参数:request,模板路径,context上下文(模板中展示的数据)
 5,创建子应用url
 6,将url注册到总的url中
+
+
+django的表单:
+1,子应用下创建表单类的forms.py文件
+2,创建表单类from django import forms,表单类继承自forms.Form    eg:class MyForm(forms.Form)
+3,根据数据模型字段以及实际业务需求来创建表单类的属性 eg: btitle = forms.CharField(max_length=20,label='图书名', required=True)
+4,视图中get方法创建表单类实例对象,并传递给模板渲染  eg:form = MyForm()
+5,post方法中获取表单对象 eg:form = MyForn(request.POST),POST属性可以获取表单数据
+6,is_vaild()对获取到的数据验证
+7,获取参数后对数据库操作
