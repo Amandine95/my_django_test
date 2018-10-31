@@ -27,5 +27,7 @@ urlpatterns = [
 
     url(r'^',include('classviews.urls')),
 
-    url(r'^',include('template_part.urls'))
+    url(r'^',include('template_part.urls')),
+
+    url(r'^',include('database_models.urls'))
 ]
