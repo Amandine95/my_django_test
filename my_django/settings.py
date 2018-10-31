@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'reqresp.apps.ReqrespConfig',
     'classviews.apps.ClassviewsConfig',
-    'database_models.apps.DatabaseModelsConfig'
+    'database_models.apps.DatabaseModelsConfig',
+    'template_part.apps.TemplatePartConfig'
 
 ]
 
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'my_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

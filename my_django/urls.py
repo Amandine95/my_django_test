@@ -25,5 +25,7 @@ urlpatterns = [
     # 不加前缀   空字符串
     url(r'^',include('reqresp.urls')),
 
-    url(r'^',include('classviews.urls'))
+    url(r'^',include('classviews.urls')),
+
+    url(r'^',include('template_part.urls'))
 ]
