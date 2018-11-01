@@ -1,5 +1,21 @@
 from django.db import models
 
+"""
+管理器操作：
+1，objects就是管理器，继承于models.Manager,提供如get/filter/all等方法
+2，自定义管理器，重写相关方法，在方法中添加条件过滤实现更便捷的数据库查询
+3，自定义管理器，模型类中创建管理器对象，使用管理器
+"""
+
+
+class BookInfoManager(models.Manager):
+    """自定义管理器"""
+
+    def all(self):
+        """重写all"""
+        # 自定义后的all方法，会自动过滤掉被逻辑删除的数据
+        return super().filter(is_delete=False)
+
 
 # 定义图书模型类BookInfo
 class BookInfo(models.Model):
@@ -17,6 +33,9 @@ class BookInfo(models.Model):
     def __str__(self):
         """定义每个数据对象的显示信息"""
         return self.btitle
+
+    # 创建管理器对象
+    books = BookInfoManager()
 
 
 # 定义英雄模型类HeroInfo
