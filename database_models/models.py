@@ -35,7 +35,7 @@ class BookInfo(models.Model):
         return self.btitle
 
     # 创建管理器对象
-    books = BookInfoManager()
+    # books = BookInfoManager()
 
 
 # 定义英雄模型类HeroInfo
