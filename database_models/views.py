@@ -66,7 +66,7 @@ class BooksAPIView(View):
 
             })
         # safe为True时确保传入的是字典
-        return JsonResponse(books_list, safe=False)
+        return JsonResponse(books_list, safe=False,status=200)
 
     def post(self, request):
         """
@@ -92,7 +92,7 @@ class BooksAPIView(View):
             "comment": book.bcomment,
             "is_delete": book.is_delete
 
-        })
+        },status=201)
 
 
 class BookAPIView(View):
@@ -123,7 +123,7 @@ class BookAPIView(View):
             "comment": book.bcomment,
             "is_delete": book.is_delete
         }
-        return JsonResponse(book_dict)
+        return JsonResponse(book_dict,status=200)
 
     def put(self, request, pk):
         """
@@ -155,7 +155,7 @@ class BookAPIView(View):
             "read": book.bread,
             "comment": book.bcomment,
             "is_delete": book.is_delete
-        })
+        },status=202)
 
     def delete(self, request, pk):
         """
@@ -174,4 +174,4 @@ class BookAPIView(View):
         except Exception as e:
             return HttpResponse(status=404)
         book.delete()
-        return HttpResponse('删除成功')
+        return HttpResponse('删除成功',status=204)
