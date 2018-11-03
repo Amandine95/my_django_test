@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
 
+from database_models import new_views
 from database_models import views
 
 urlpatterns = [
@@ -10,11 +11,13 @@ urlpatterns = [
 
     url(r'^book/(?P<pk>\d+)/$', views.BookAPIView.as_view()),
 
-    url(r'^ser/$',views.serialize),
+    url(r'^ser/$', views.serialize),
 
-    url(r'^deser/$',views.deserialize),
+    url(r'^deser/$', views.deserialize),
 
-    url(r'^sers/$',views.serialize1)
+    url(r'^sers/$', views.serialize1),
+
+    url(r'^books_api/$', new_views.BookListAPIView.as_view())
 ]
 """
 3,创建视图集的url
