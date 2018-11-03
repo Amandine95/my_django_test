@@ -9,7 +9,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from database_models.models import BookInfo
 from database_models.models_forms import MyModelForms
-from database_models.serializers import BookInfoSerializer
+from database_models.serializers import BookInfoSerializer, BookInfoSerializer2
 
 
 class ModelFormView(View):
@@ -190,3 +190,40 @@ class BookInfoSet(ModelViewSet):
     queryset = BookInfo.objects.all()
     # 指明序列化器
     serializer_class = BookInfoSerializer
+
+
+"""
+创建视图函数 模拟序列化/反序列化
+初始化后的序列器对象参数：instance(序列化时，传入模型数据),data(反序列化时，传入接收到的前端数据)
+"""
+
+
+def serialize(request):
+    """序列化"""
+    # 查询数据库
+    book = BookInfo.objects.get(id=1)
+    # 序列化
+    ser = BookInfoSerializer2(book)
+    print(ser.data)
+    return HttpResponse('序列化成功%s' % ser.data)
+
+
+def deserialize(request):
+    """反序列化"""
+    # 模拟接收到的数据
+    data = {
+        "id":1,
+        "btitle": "数学",
+        "bpub_date": "1999-09-09",
+        "bread":100
+    }
+    # 接收到的数据传入data参数
+    deser = BookInfoSerializer2(data=data)
+    # 校验结果
+    print(deser.is_valid())
+    # 返回错误信息
+    print(deser.errors)
+    # 清洗后数据,为空返回{}
+    print(deser.validated_data)
+
+    return HttpResponse('反序列化结束%s' % deser.validated_data)

@@ -8,7 +8,11 @@ urlpatterns = [
 
     url(r'^books/$', views.BooksAPIView.as_view()),
 
-    url(r'^book/(?P<pk>\d+)/$', views.BookAPIView.as_view())
+    url(r'^book/(?P<pk>\d+)/$', views.BookAPIView.as_view()),
+
+    url(r'^ser/$',views.serialize),
+
+    url(r'^deser/$',views.deserialize)
 ]
 """
 3,创建视图集的url
