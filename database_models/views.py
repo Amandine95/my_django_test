@@ -212,10 +212,10 @@ def deserialize(request):
     """反序列化"""
     # 模拟接收到的数据
     data = {
-        "id":1,
         "btitle": "数学",
         "bpub_date": "1999-09-09",
-        "bread":100
+        "bread":100,
+        "is_delete":0
     }
     # 接收到的数据传入data参数
     deser = BookInfoSerializer2(data=data)
