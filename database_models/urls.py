@@ -12,7 +12,9 @@ urlpatterns = [
 
     url(r'^ser/$',views.serialize),
 
-    url(r'^deser/$',views.deserialize)
+    url(r'^deser/$',views.deserialize),
+
+    url(r'^sers/$',views.serialize1)
 ]
 """
 3,创建视图集的url

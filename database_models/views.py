@@ -214,8 +214,8 @@ def deserialize(request):
     data = {
         "btitle": "数学",
         "bpub_date": "1999-09-09",
-        "bread":100,
-        "is_delete":0
+        "bread": 100,
+        "is_delete": 0
     }
     # 接收到的数据传入data参数
     deser = BookInfoSerializer2(data=data)
@@ -227,3 +227,13 @@ def deserialize(request):
     print(deser.validated_data)
 
     return HttpResponse('反序列化结束%s' % deser.validated_data)
+
+
+def serialize1(request):
+    """多条序列化"""
+    # 查询数据库
+    bookset = BookInfo.objects.all()
+    # 多条序列化,添加属性many
+    ser = BookInfoSerializer2(bookset, many=True)
+    print(ser.data)
+    return HttpResponse('序列化成功%s' % ser.data)
