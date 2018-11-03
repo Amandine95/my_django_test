@@ -5,9 +5,11 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
+from rest_framework.viewsets import ModelViewSet
 
 from database_models.models import BookInfo
 from database_models.models_forms import MyModelForms
+from database_models.serializers import BookInfoSerializer
 
 
 class ModelFormView(View):
@@ -66,7 +68,7 @@ class BooksAPIView(View):
 
             })
         # safe为True时确保传入的是字典
-        return JsonResponse(books_list, safe=False,status=200)
+        return JsonResponse(books_list, safe=False, status=200)
 
     def post(self, request):
         """
@@ -92,7 +94,7 @@ class BooksAPIView(View):
             "comment": book.bcomment,
             "is_delete": book.is_delete
 
-        },status=201)
+        }, status=201)
 
 
 class BookAPIView(View):
@@ -123,7 +125,7 @@ class BookAPIView(View):
             "comment": book.bcomment,
             "is_delete": book.is_delete
         }
-        return JsonResponse(book_dict,status=200)
+        return JsonResponse(book_dict, status=200)
 
     def put(self, request, pk):
         """
@@ -155,7 +157,7 @@ class BookAPIView(View):
             "read": book.bread,
             "comment": book.bcomment,
             "is_delete": book.is_delete
-        },status=202)
+        }, status=202)
 
     def delete(self, request, pk):
         """
@@ -174,4 +176,17 @@ class BookAPIView(View):
         except Exception as e:
             return HttpResponse(status=404)
         book.delete()
-        return HttpResponse('删除成功',status=204)
+        return HttpResponse('删除成功', status=204)
+
+
+"""
+2,REST framework 创建视图集
+"""
+
+
+class BookInfoSet(ModelViewSet):
+    """图书视图集"""
+    # 所有图书信息的查询结果集
+    queryset = BookInfo.objects.all()
+    # 指明序列化器
+    serializer_class = BookInfoSerializer

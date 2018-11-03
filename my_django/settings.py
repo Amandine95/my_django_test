@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'users.apps.UsersConfig',
     'reqresp.apps.ReqrespConfig',
     'classviews.apps.ClassviewsConfig',
     'database_models.apps.DatabaseModelsConfig',
-    'template_part.apps.TemplatePartConfig'
+    'template_part.apps.TemplatePartConfig',
+
 
 ]
 
