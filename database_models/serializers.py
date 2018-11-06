@@ -39,7 +39,9 @@ class BookInfoSerializer2(serializers.Serializer):
         """新建"""
         print('create!!!')
         # **validated_data拆包
-        return BookInfo(**validated_data)
+        # return BookInfo(**validated_data)
+        # 实现数据保存在数据库中
+        return BookInfo.objects.create(**validated_data)
 
     # 调用update,需要在视图中调用反序列化器之前创建模型对象
     def update(self, instance, validated_data):
@@ -49,4 +51,5 @@ class BookInfoSerializer2(serializers.Serializer):
         instance.bpub_date = validated_data.get('bpub_date', instance.bpub_date)
         instance.bread = validated_data.get('bread', instance.bread)
         instance.bcomment = validated_data.get('bcomment', instance.bcomment)
+        instance.save()
         return instance

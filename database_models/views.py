@@ -219,8 +219,8 @@ def deserialize(request):
     }
     # 创建模型对象,调用update方法前提
     book = BookInfo.objects.get(pk=1)
-    # 接收到的数据传入data参数,另调用update需传入模型对象,不传入则调用create
-    deser = BookInfoSerializer2(book, data=data)
+    # 接收到的数据传入data参数,另调用update需传入模型对象,不传入则调用create,partial=True部分字段更新
+    deser = BookInfoSerializer2(data=data,partial=True)
     # 校验结果
     print(deser.is_valid())
     # 返回错误信息
