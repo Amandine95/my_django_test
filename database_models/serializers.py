@@ -33,3 +33,20 @@ class BookInfoSerializer2(serializers.Serializer):
     bread = serializers.IntegerField(label='阅读量', required=False, default=0)
     bcomment = serializers.IntegerField(label='描述', required=False, default=0)
     is_delete = serializers.BooleanField(label='逻辑删除', write_only=True)
+
+    # 反序列化时新建create和更新update数据模型
+    def create(self, validated_data):
+        """新建"""
+        print('create!!!')
+        # **validated_data拆包
+        return BookInfo(**validated_data)
+
+    # 调用update,需要在视图中调用反序列化器之前创建模型对象
+    def update(self, instance, validated_data):
+        """更新，instance为要更新的对象实例"""
+        print('update!!!')
+        instance.btitle = validated_data.get('btitle', instance.btitle)
+        instance.bpub_date = validated_data.get('bpub_date', instance.bpub_date)
+        instance.bread = validated_data.get('bread', instance.bread)
+        instance.bcomment = validated_data.get('bcomment', instance.bcomment)
+        return instance

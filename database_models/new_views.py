@@ -20,6 +20,7 @@ class BookListAPIView(APIView):
         """request是APIView中的"""
 
         queryset = BookInfo.objects.all()
+        # 类视图用模型序列化器
         serializer = BookInfoSerializer(queryset, many=True)
         data = serializer.data
         return Response(data, status=200)

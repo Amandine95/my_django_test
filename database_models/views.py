@@ -217,14 +217,19 @@ def deserialize(request):
         "bread": 100,
         "is_delete": 0
     }
-    # 接收到的数据传入data参数
-    deser = BookInfoSerializer2(data=data)
+    # 创建模型对象,调用update方法前提
+    book = BookInfo.objects.get(pk=1)
+    # 接收到的数据传入data参数,另调用update需传入模型对象,不传入则调用create
+    deser = BookInfoSerializer2(book, data=data)
     # 校验结果
     print(deser.is_valid())
     # 返回错误信息
     print(deser.errors)
     # 清洗后数据,为空返回{}
     print(deser.validated_data)
+
+    """反序列化的模型新建与更新save()方法"""
+    deser.save()
 
     return HttpResponse('反序列化结束%s' % deser.validated_data)
 
